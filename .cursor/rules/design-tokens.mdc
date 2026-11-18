@@ -1,0 +1,17 @@
+# Design Tokens
+
+## Color Palette
+Never hardcode hex values. Use Tailwind token classes or CSS variables:
+
+| Token | Value | Tailwind Class |
+|---|---|---|
+| Primary (forest) | `#1A302B` | `text-primary`, `bg-primary` |
+| Primary strong | `#0B2D1E` | `bg-primary-strong` |
+| Accent (gold) | `#C5A373` | `bg-accent`, `text-accent` |
+| Cream | `#F9F8F3` | `bg-cream`, `bg-background` |
+| Dark | `#1A1A1A` | `text-dark` |
+| Muted | `#6B6B6B` | `text-muted` |
+
+## Typography
+- `font-display` — Fraunces
+- `font-sans` — Nunito Sans

@@ -1,0 +1,93 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+/*
+ * CLOUDORA — Quiet Luxury Mountain Homestay
+ *
+ * PRIMARY: Deep Forest Green #0B2D1E / #1A302B
+ * ACCENT:  Muted Gold/Brass  #C5A373
+ * CREAM:   Soft ivory        #F9F8F3
+ * CHARCOAL text              #1A1A1A
+ */
+@theme inline {
+  --color-primary: #1A302B;
+  --color-primary-foreground: #FFFFFF;
+  --color-primary-strong: #0B2D1E;
+  --color-primary-soft: #E8EDE6;
+
+  --color-accent: #C5A373;
+  --color-accent-foreground: #0B2D1E;
+  --color-accent-strong: #A8844F;
+  --color-accent-soft: #F3EADF;
+
+  --color-forest: #0B2D1E;
+  --color-forest-mid: #1A302B;
+  --color-forest-soft: #243F38;
+  --color-gold: #C5A373;
+  --color-gold-strong: #A8844F;
+  --color-cream: #F9F8F3;
+  --color-cream-dark: #F0EEE6;
+  --color-sage: #E8EDE6;
+
+  --color-background: #F9F8F3;
+  --color-foreground: #1A1A1A;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A1A1A;
+
+  --color-dark: #1A1A1A;
+  --color-muted: #6B6B6B;
+  --color-muted-foreground: #6B6B6B;
+  --color-border: #E5E2D9;
+  --color-input: #E5E2D9;
+  --color-ring: #C5A373;
+
+  --color-success: #1A302B;
+  --color-success-soft: #E8EDE6;
+  --color-warning: #C5A373;
+  --color-warning-soft: #F3EADF;
+  --color-destructive: #B42318;
+  --color-destructive-soft: #FEE4E2;
+  --color-info: #1A302B;
+  --color-info-soft: #E8EDE6;
+
+  --font-sans: "Nunito Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}

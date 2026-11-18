@@ -1,0 +1,28 @@
+---
+description: Prisma / PostgreSQL (Supabase) data-access patterns
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Prisma / PostgreSQL Patterns
+
+## Layout
+- Schema: `prisma/schema.prisma`
+- Client: `src/lib/db/prisma.ts` — reuse the cached `PrismaClient` in serverless
+- Mappers: `src/lib/db/catalog.ts`, `orders.ts`, `users.ts`, `serialize.ts`
+- Domain queries live in `src/lib/` — never query Prisma from React client components
+
+## Rules
+- Use `prisma` from `@/lib/db/prisma` (or `await connectDb()` for call-site compatibility)
+- Validate inputs with Zod at the API boundary before writes
+- Map rows with `withId` / domain mappers so API responses still expose `_id`
+- Use `isDbId()` instead of Mongo ObjectId checks
+- Never expose `passwordHash` or secrets in API responses
+- Prefer relational includes (`include: { category: true, items: true }`) over N+1 queries
+- Nested document-style fields use Prisma `Json` (variants, addresses, attribution, etc.)
+
+## Env
+```
+DATABASE_URL=   # Supabase pooled connection (6543, pgbouncer)
+DIRECT_URL=     # Supabase direct connection (5432) for migrations
+```

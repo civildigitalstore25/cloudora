@@ -1,0 +1,236 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  user
+  admin
+}
+
+enum RoomFloor {
+  GROUND
+  FIRST
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CHECKED_IN
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum EnquiryType {
+  CONTACT
+  EXPERIENCE
+  PACKAGE
+  GENERAL
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+model User {
+  id                     String    @id @default(cuid())
+  name                   String
+  email                  String    @unique
+  passwordHash           String?
+  phone                  String?
+  image                  String?
+  role                   UserRole  @default(user)
+  passwordResetTokenHash String?
+  passwordResetExpiresAt DateTime?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  bookings Booking[]
+  enquiries Enquiry[]
+
+  @@map("users")
+}
+
+model Room {
+  id                 String    @id @default(cuid())
+  name               String
+  slug               String    @unique
+  description        String    @default("")
+  floor              RoomFloor
+  maxGuests          Int       @default(3)
+  baseTariffPerNight Float
+  extraGuestFee      Float     @default(0)
+  images             String[]  @default([])
+  amenities          String[]  @default([])
+  isActive           Boolean   @default(true)
+  sortOrder          Int       @default(0)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  bookingRooms BookingRoom[]
+  blockedDates BlockedDate[]
+
+  @@index([isActive, sortOrder])
+  @@index([floor])
+  @@map("rooms")
+}
+
+model Package {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  description   String   @default("")
+  shortDescription String @default("")
+  images        String[] @default([])
+  roomIds       String[] @default([])
+  pricePerNight Float?
+  totalPrice    Float?
+  maxGuests     Int      @default(15)
+  includes      String[] @default([])
+  isActive      Boolean  @default(true)
+  sortOrder     Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  bookings Booking[]
+
+  @@index([isActive, sortOrder])
+  @@map("packages")
+}
+
+model Booking {
+  id                String        @id @default(cuid())
+  reference         String        @unique
+  userId            String?
+  user              User?         @relation(fields: [userId], references: [id])
+  packageId         String?
+  package           Package?      @relation(fields: [packageId], references: [id])
+  guestName         String
+  guestEmail        String
+  guestPhone        String
+  checkIn           DateTime
+  checkOut          DateTime
+  adults            Int           @default(2)
+  children          Int           @default(0)
+  status            BookingStatus @default(PENDING)
+  paymentStatus     PaymentStatus @default(PENDING)
+  pricing           Json
+  cashfreeOrderId   String?
+  cashfreePaymentId String?
+  notes             String?
+  adminNotes        String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  rooms BookingRoom[]
+
+  @@index([userId])
+  @@index([guestEmail])
+  @@index([checkIn, checkOut])
+  @@index([status, paymentStatus])
+  @@index([cashfreeOrderId])
+  @@map("bookings")
+}
+
+model BookingRoom {
+  id        String  @id @default(cuid())
+  bookingId String
+  booking   Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  roomId    String
+  room      Room    @relation(fields: [roomId], references: [id])
+  nightlyRate Float
+  nights    Int
+
+  @@unique([bookingId, roomId])
+  @@index([roomId])
+  @@index([bookingId])
+  @@map("booking_rooms")
+}
+
+model BlockedDate {
+  id        String   @id @default(cuid())
+  roomId    String?
+  room      Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  startDate DateTime
+  endDate   DateTime
+  reason    String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([roomId])
+  @@index([startDate, endDate])
+  @@map("blocked_dates")
+}
+
+model Enquiry {
+  id        String        @id @default(cuid())
+  type      EnquiryType   @default(CONTACT)
+  status    EnquiryStatus @default(NEW)
+  name      String
+  email     String
+  phone     String?
+  subject   String        @default("")
+  message   String
+  meta      Json?
+  userId    String?
+  user      User?         @relation(fields: [userId], references: [id])
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status])
+  @@index([type])
+  @@index([createdAt])
+  @@map("enquiries")
+}
+
+model GalleryItem {
+  id        String    @id @default(cuid())
+  title     String    @default("")
+  url       String
+  type      MediaType @default(IMAGE)
+  alt       String    @default("")
+  sortOrder Int       @default(0)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([isActive, sortOrder])
+  @@map("gallery_items")
+}
+
+model Carousel {
+  id             String   @id @default(cuid())
+  imageUrl       String
+  navigationLink String   @default("")
+  headline       String   @default("")
+  subheadline    String   @default("")
+  buttonText     String   @default("")
+  altText        String   @default("")
+  sortOrder      Int      @default(1)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([isActive, sortOrder])
+  @@map("carousels")
+}
