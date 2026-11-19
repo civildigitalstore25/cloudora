@@ -7,12 +7,20 @@ import type { BookingPricing } from "@/types/booking";
 import { Prisma } from "@prisma/client";
 
 const updateSchema = z.object({
-  status: z
-    .enum(["PENDING", "CONFIRMED", "CHECKED_IN", "COMPLETED", "CANCELLED"])
-    .optional(),
-  paymentStatus: z
-    .enum(["PENDING", "PAID", "FAILED", "REFUNDED", "PARTIALLY_REFUNDED"])
-    .optional(),
+  status: z.enum([
+    "PENDING",
+    "CONFIRMED",
+    "CHECKED_IN",
+    "COMPLETED",
+    "CANCELLED",
+  ]),
+  paymentStatus: z.enum([
+    "PENDING",
+    "PAID",
+    "FAILED",
+    "REFUNDED",
+    "PARTIALLY_REFUNDED",
+  ]),
   adminNotes: z.string().optional(),
   balanceCollected: z.boolean().optional(),
 });
@@ -33,7 +41,7 @@ export async function GET(_request: Request, { params }: Params) {
   return NextResponse.json({ data: withId(booking) });
 }
 
-export async function PATCH(request: Request, { params }: Params) {
+export async function PUT(request: Request, { params }: Params) {
   const gate = await requireAdmin();
   if (!gate.ok) return gate.response;
   const { id } = await params;
@@ -64,4 +72,12 @@ export async function PATCH(request: Request, { params }: Params) {
   });
 
   return NextResponse.json({ data: withId(booking) });
+}
+
+export async function DELETE(_request: Request, { params }: Params) {
+  const gate = await requireAdmin();
+  if (!gate.ok) return gate.response;
+  const { id } = await params;
+  await prisma.booking.delete({ where: { id } });
+  return NextResponse.json({ data: { ok: true } });
 }

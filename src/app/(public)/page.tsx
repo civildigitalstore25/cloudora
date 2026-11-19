@@ -5,6 +5,7 @@ import { GalleryTeaserSection } from "@/components/features/home/GalleryTeaserSe
 import { HomeHero } from "@/components/features/home/HomeHero";
 import { IntroSection } from "@/components/features/home/IntroSection";
 import { PackageTeaserSection } from "@/components/features/home/PackageTeaserSection";
+import { TestimonialsSection } from "@/components/features/home/TestimonialsSection";
 import { VillaFloorsSection } from "@/components/features/home/VillaFloorsSection";
 
 export default function HomePage() {
@@ -19,6 +20,7 @@ export default function HomePage() {
       <VillaFloorsSection />
       <ExperiencesSection />
       <PackageTeaserSection />
+      <TestimonialsSection />
       <GalleryTeaserSection />
     </>
   );

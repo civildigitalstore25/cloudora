@@ -1,18 +1,27 @@
 import { CANCELLATION_POLICY, TARIFF_NOTE } from "@/constants/booking";
+import { IDEAL_FOR, WELCOME_COPY } from "@/constants/content";
 import { UI } from "@/constants/ui";
 
 const FAQS = [
+  {
+    q: "What is Cloudora?",
+    a: WELCOME_COPY.body,
+  },
   {
     q: "What is included in the standard tariff?",
     a: TARIFF_NOTE,
   },
   {
     q: "How much advance is needed to confirm?",
-    a: "Reservations are guaranteed with an advance payment of 50%. The balance is due at the property.",
+    a: "Reservations are guaranteed with an advance payment of 50%. The balance is due at the property. Google Pay and bank transfer details are on the Contact page.",
   },
   {
-    q: "Is Cloudora suitable for families?",
-    a: `Yes. Cloudora is a private 5 BHK villa for families, friends and corporate groups, accommodating up to ${UI.maxGuests} guests.`,
+    q: "Who is Cloudora ideal for?",
+    a: IDEAL_FOR.join("; ") + ".",
+  },
+  {
+    q: "How do I enquire about Sai Travels package?",
+    a: `Call Cloudora Kodaikanal on ${UI.phonePrimary} or Sai Travels Theni on ${UI.saiTravelsPhone}. Advance booking required; pricing depends on group size, dates and availability.`,
   },
   {
     q: "What is your cancellation policy?",

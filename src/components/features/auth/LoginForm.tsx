@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AUTH_COPY, AUTH_PROVIDERS } from "@/constants/auth";
+import { AUTH_COPY, AUTH_PROVIDERS, USER_ROLES } from "@/constants/auth";
 import { ROUTES } from "@/constants/routes";
 import { GoogleSignInButton } from "@/components/features/auth/GoogleSignInButton";
 
@@ -21,17 +21,22 @@ export function LoginForm() {
     setLoading(true);
     const form = new FormData(e.currentTarget);
     const result = await signIn(AUTH_PROVIDERS.CREDENTIALS, {
-      email: String(form.get("email")),
+      email: String(form.get("email")).trim().toLowerCase(),
       password: String(form.get("password")),
       redirect: false,
     });
-    setLoading(false);
     if (result?.error) {
+      setLoading(false);
       toast.error(AUTH_COPY.invalidCredentials);
       return;
     }
+    const session = await getSession();
     toast.success(AUTH_COPY.welcomeBack);
-    router.push(ROUTES.HOME);
+    router.push(
+      session?.user?.role === USER_ROLES.ADMIN
+        ? ROUTES.ADMIN.DASHBOARD
+        : ROUTES.HOME,
+    );
     router.refresh();
   }
 

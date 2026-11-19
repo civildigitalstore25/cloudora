@@ -1,3 +1,4 @@
+import { AdminPageHeader } from "@/components/features/admin/AdminPageHeader";
 import { PackageForm } from "@/components/features/admin/PackageForm";
 import { prisma } from "@/lib/db/prisma";
 
@@ -8,9 +9,13 @@ export default async function AdminPackageNewPage() {
     orderBy: { sortOrder: "asc" },
     select: { id: true, name: true },
   });
+
   return (
     <div>
-      <h1 className="mb-6 font-display text-3xl text-dark">Add package</h1>
+      <AdminPageHeader
+        title="Add package"
+        description="Bundle rooms into a curated stay offer."
+      />
       <PackageForm rooms={rooms} />
     </div>
   );

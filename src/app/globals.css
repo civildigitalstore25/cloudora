@@ -90,4 +90,40 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold tracking-[0.18em] text-muted uppercase;
+  }
 }
+
+/* Admin ops shell — deep forest band */
+@utility forest-gradient {
+  background-color: #0b2d1e;
+  background-image:
+    radial-gradient(36rem 22rem at 92% 8%, rgba(197, 163, 115, 0.18), transparent 58%),
+    radial-gradient(28rem 18rem at 8% 92%, rgba(36, 63, 56, 0.55), transparent 55%),
+    linear-gradient(165deg, #0b2d1e 0%, #1a302b 55%, #12241e 100%);
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(197, 163, 115, 0.35) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(197, 163, 115, 0.28);
+  border-radius: 9999px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(197, 163, 115, 0.5);
+}
+

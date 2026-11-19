@@ -1,9 +1,13 @@
+import { AdminPageHeader } from "@/components/features/admin/AdminPageHeader";
 import { RoomForm } from "@/components/features/admin/RoomForm";
 
 export default function AdminRoomNewPage() {
   return (
     <div>
-      <h1 className="mb-6 font-display text-3xl text-dark">Add room</h1>
+      <AdminPageHeader
+        title="Add room"
+        description="Create a bedroom with tariff, floor and amenities."
+      />
       <RoomForm />
     </div>
   );

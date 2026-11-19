@@ -12,6 +12,7 @@ export const API = {
   ROOMS: "/api/rooms",
   PACKAGES: "/api/packages",
   GALLERY: "/api/gallery",
+  PROFILE: "/api/profile",
   ADMIN: {
     ROOMS: "/api/admin/rooms",
     ROOM: (id: string) => `/api/admin/rooms/${id}`,

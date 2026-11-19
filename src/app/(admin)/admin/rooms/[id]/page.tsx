@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { AdminPageHeader } from "@/components/features/admin/AdminPageHeader";
 import { RoomForm } from "@/components/features/admin/RoomForm";
 import { prisma } from "@/lib/db/prisma";
 import { withId } from "@/lib/db/serialize";
@@ -15,7 +16,10 @@ export default async function AdminRoomEditPage({ params }: Params) {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-3xl text-dark">Edit room</h1>
+      <AdminPageHeader
+        title="Edit room"
+        description="Update inventory details, tariff and visibility."
+      />
       <RoomForm
         initial={{
           _id: mapped._id,

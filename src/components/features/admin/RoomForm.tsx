@@ -58,7 +58,7 @@ export function RoomForm({ initial }: { initial?: RoomFormValues }) {
       const res = await fetch(
         editing ? API.ADMIN.ROOM(initial!._id!) : API.ADMIN.ROOMS,
         {
-          method: editing ? "PATCH" : "POST",
+          method: editing ? "PUT" : "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify(payload),
         },
@@ -76,7 +76,10 @@ export function RoomForm({ initial }: { initial?: RoomFormValues }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="max-w-xl space-y-4 rounded-2xl bg-card p-6 shadow-sm">
+    <form
+      onSubmit={onSubmit}
+      className="max-w-xl space-y-4 rounded-2xl border border-border/70 bg-card p-6 shadow-sm"
+    >
       <div>
         <Label htmlFor="name">Name</Label>
         <Input id="name" name="name" required defaultValue={initial?.name} className="mt-1.5" />

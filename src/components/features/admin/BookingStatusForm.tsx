@@ -28,7 +28,7 @@ export function BookingStatusForm({
     const form = new FormData(e.currentTarget);
     try {
       const res = await fetch(API.ADMIN.BOOKING(bookingId), {
-        method: "PATCH",
+        method: "PUT",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           status: form.get("status"),
@@ -49,7 +49,10 @@ export function BookingStatusForm({
   }
 
   return (
-    <form onSubmit={onSubmit} className="mt-6 space-y-4 rounded-2xl bg-card p-5 shadow-sm">
+    <form
+      onSubmit={onSubmit}
+      className="mt-6 space-y-4 rounded-2xl border border-border/70 bg-card p-5 shadow-sm"
+    >
       <div>
         <Label htmlFor="status">Status</Label>
         <select

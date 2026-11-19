@@ -41,7 +41,7 @@ export function BookingSearchBar({ className }: { className?: string }) {
       onSubmit={onSubmit}
       className={
         className ??
-        "mx-auto -mt-16 grid max-w-5xl gap-3 rounded-2xl bg-cream p-4 shadow-xl md:-mt-20 md:grid-cols-[1.2fr_1.2fr_0.7fr_0.7fr_auto] md:items-end"
+        "mx-auto -mt-12 grid max-w-5xl grid-cols-1 gap-3 rounded-2xl bg-cream p-4 shadow-xl sm:-mt-16 sm:grid-cols-2 md:-mt-20 md:grid-cols-[1.2fr_1.2fr_0.7fr_0.7fr_auto] md:items-end"
       }
     >
       <div>
@@ -92,7 +92,11 @@ export function BookingSearchBar({ className }: { className?: string }) {
           className="mt-1.5"
         />
       </div>
-      <Button type="submit" variant="accent" className="h-11 md:mb-0.5">
+      <Button
+        type="submit"
+        variant="accent"
+        className="h-11 w-full sm:col-span-2 md:col-span-1 md:mb-0.5"
+      >
         {BOOKING_COPY.searchCta}
       </Button>
     </form>

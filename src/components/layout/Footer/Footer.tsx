@@ -16,6 +16,9 @@ export function Footer() {
         <h2 className="mx-auto mt-4 max-w-3xl font-display text-3xl text-primary-strong md:text-5xl">
           {CTA_COPY.title}
         </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-base text-primary-strong/80">
+          {CTA_COPY.tamil}
+        </p>
         <Button asChild variant="default" size="lg" className="mt-8">
           <Link href={ROUTES.BOOK}>{CTA_COPY.button}</Link>
         </Button>
@@ -42,9 +45,11 @@ export function Footer() {
             <p className="mt-6 font-display text-2xl text-white/95">
               {FOOTER_COPY.tagline}
             </p>
+            <p className="mt-2 text-sm text-accent">{FOOTER_COPY.tamil}</p>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-white/70">
               {FOOTER_COPY.description}
             </p>
+            <p className="mt-4 text-sm text-white/60">{FOOTER_COPY.proprietor}</p>
           </div>
 
           <div>
@@ -55,7 +60,7 @@ export function Footer() {
               {UI.address}
             </p>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(UI.address)}`}
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(UI.mapsQuery)}`}
               target="_blank"
               rel="noreferrer"
               className="mt-3 inline-block text-sm text-accent"
@@ -69,14 +74,25 @@ export function Footer() {
               {FOOTER_COPY.connect}
             </p>
             <div className="mt-4 space-y-2 text-sm text-white/85">
-              <a href={`tel:${UI.phonePrimary.replace(/\s/g, "")}`} className="block">
+              <a href={`tel:${UI.phonePrimaryRaw}`} className="block">
                 {UI.phonePrimary}
               </a>
-              <a href={`tel:${UI.phoneSecondary.replace(/\s/g, "")}`} className="block">
+              <a href={`tel:${UI.phoneSecondaryRaw}`} className="block">
                 {UI.phoneSecondary}
               </a>
               <a href={`mailto:${UI.email}`} className="block">
                 {UI.email}
+              </a>
+              <a href={`mailto:${UI.emailAlt}`} className="block">
+                {UI.emailAlt}
+              </a>
+              <a
+                href={UI.social.whatsapp}
+                target="_blank"
+                rel="noreferrer"
+                className="block text-accent"
+              >
+                WhatsApp
               </a>
             </div>
             <div className="mt-6 flex gap-4 text-xs font-bold tracking-[0.16em] uppercase">

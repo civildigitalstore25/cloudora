@@ -1,5 +1,6 @@
 import { ASSETS } from "@/constants/assets";
 import { ROUTES } from "@/constants/routes";
+import { WELCOME_COPY } from "@/constants/content";
 import { UI } from "@/constants/ui";
 
 export const NAV_LINKS = [
@@ -17,7 +18,7 @@ export const HERO_COPY = {
   titleLine2Before: "",
   titleLine2Italic: "Stay",
   titleLine2After: " in Luxury.",
-  body: "Experience comfort, privacy and unforgettable mountain views at Cloudora Luxury Homestay.",
+  body: WELCOME_COPY.body,
   primaryCta: "Explore packages",
   secondaryCta: "Discover Cloudora",
 } as const;
@@ -25,33 +26,37 @@ export const HERO_COPY = {
 export const INTRO_COPY = {
   eyebrow: "A place to come together",
   title: "Your private luxury escape in Kodaikanal",
-  body: "Cloudora is a spacious 5 BHK luxury villa created for families, friends and corporate groups who value privacy, comfort and time in nature. Wake to cool mountain air, gather in generous lounges and let our caretaker make every stay feel effortless.",
+  body: WELCOME_COPY.body,
+  closing: WELCOME_COPY.closing,
   stats: [
     { value: "5", label: "BHK", sub: "Whole-villa privacy" },
+    { value: "15", label: "guests", sub: "Families, friends & groups" },
     { value: "2", label: "floors", sub: "Space to gather and unwind" },
   ],
   badge: "15 Guests, one private villa",
 } as const;
 
 export const AMENITIES = [
-  { id: "bedrooms", label: "5 spacious bedrooms", icon: "bed" },
-  { id: "guests", label: "Up to 15 guests", icon: "users" },
+  { id: "bedrooms", label: "Premium 5 BHK luxury villa", icon: "bed" },
+  { id: "guests", label: "15 guest accommodation", icon: "users" },
   { id: "views", label: "Valley & mountain views", icon: "mountain" },
-  { id: "parking", label: "Private car parking", icon: "car" },
-  { id: "wifi", label: "High-speed Wi-Fi", icon: "wifi" },
-  { id: "kitchen", label: "Modular kitchen", icon: "utensils" },
-  { id: "campfire", label: "Campfire area", icon: "flame" },
+  { id: "parking", label: "Separate private car parking", icon: "car" },
+  { id: "wifi", label: "Free high-speed Wi-Fi", icon: "wifi" },
   { id: "tv", label: "65-inch Smart TV", icon: "tv" },
-  { id: "caretaker", label: "Caretaker support", icon: "heart" },
+  { id: "lounge", label: "Spacious sofa lounge", icon: "sofa" },
+  { id: "dining", label: "Dining area", icon: "utensils" },
+  { id: "kitchen", label: "Modern modular kitchen", icon: "utensils" },
+  { id: "campfire", label: "Separate campfire area", icon: "flame" },
   { id: "hotwater", label: "24-hour hot water", icon: "droplets" },
+  { id: "minibar", label: "Mini bar setup", icon: "heart" },
   { id: "power", label: "Power backup", icon: "zap" },
-  { id: "lounge", label: "Dining & lounge", icon: "sofa" },
+  { id: "caretaker", label: "Caretaker support", icon: "heart" },
 ] as const;
 
 export const AMENITIES_COPY = {
-  eyebrow: "Everything you need",
-  title: "Thoughtful comfort, everywhere",
-  body: "Modern amenities are woven quietly into every corner, leaving you free to slow down and be together.",
+  eyebrow: "Our specialities",
+  title: "Everything you need for a memorable stay",
+  body: "Thoughtfully designed spaces and comforts so your group can slow down, gather and enjoy Kodaikanal together.",
 } as const;
 
 export const VILLA_FLOORS = [
@@ -61,10 +66,11 @@ export const VILLA_FLOORS = [
     title: "3 spacious bedrooms",
     image: ASSETS.GROUND_FLOOR,
     features: [
-      "King-size beds & attached baths",
-      "Modular self-cooking kitchen",
-      "32-inch TV in each room",
-      "Campfire area & dedicated parking",
+      "King-size beds and attached bathrooms",
+      "32-inch TV in each bedroom",
+      "Modern modular kitchen with self-cooking (on request)",
+      "Separate outdoor campfire area",
+      "Dedicated parking facility",
     ],
   },
   {
@@ -73,10 +79,13 @@ export const VILLA_FLOORS = [
     title: "2 bedrooms & executive lounge",
     image: ASSETS.FIRST_FLOOR,
     features: [
-      "King-size beds & attached baths",
-      "65-inch Smart TV",
-      "Dining and sofa lounge",
-      "Mini bar setup",
+      "King-size beds and attached bathrooms",
+      "32-inch TV in each bedroom",
+      "Comfortable dining area",
+      "Spacious sofa lounge for relaxation",
+      "65-inch Smart TV for entertainment",
+      "Stylish mini bar setup",
+      "Executive lounge for gatherings",
     ],
   },
 ] as const;
@@ -84,30 +93,32 @@ export const VILLA_FLOORS = [
 export const VILLA_COPY = {
   eyebrow: "The Villa",
   title: "Two floors. One beautiful stay.",
+  subtitle: WELCOME_COPY.closing,
 } as const;
 
 export const EXPERIENCES = [
   {
-    id: "local",
-    title: "Local discovery",
-    body: "Sightseeing routes shaped around the quiet, beautiful corners of Kodaikanal.",
+    id: "sightseeing",
+    title: "Local Kodaikanal sightseeing",
+    body: "Sightseeing experiences shaped around the quiet, beautiful corners of Kodaikanal.",
     image: ASSETS.EXPERIENCE_LOCAL,
   },
   {
-    id: "jeep",
-    title: "Jeep trails",
-    body: "Off-road adventures through mountain tracks, arranged with trusted local partners.",
-    image: ASSETS.EXPERIENCE_JEEP,
+    id: "campfire",
+    title: "Campfire & music",
+    body: "Campfire and music entertainment at Cloudora — sing, dance and celebrate with your group.",
+    image: ASSETS.EXPERIENCE_CAMPFIRE,
   },
   {
     id: "gather",
     title: "Gather & celebrate",
-    body: "Campfires, birthdays and intimate occasions thoughtfully arranged for your group.",
+    body: "Family reunions, friends' get-togethers, corporate outings and birthday celebrations.",
     image: ASSETS.EXPERIENCE_GATHER,
   },
 ] as const;
 
 export const EXPERIENCES_COPY = {
+  eyebrow: "Experiences",
   title: "Make the hills entirely your own",
   enquire: "Enquire",
 } as const;
@@ -115,31 +126,39 @@ export const EXPERIENCES_COPY = {
 export const PACKAGE_TEASER = {
   metaLeft: "Flexible stay",
   metaRight: `Up to ${UI.maxGuests} guests`,
-  title: "Cloudora Signature Villa Stay",
-  body: "A private 5 BHK villa experience for families, friends and corporate groups, surrounded by the quiet hills of Kodaikanal.",
+  title: "Cloudora Luxury Homestay Stay",
+  body: "A private 5 BHK luxury villa for families, friends and corporate groups, surrounded by the hills of Kodaikanal.",
   tariffLabel: "Tariff",
-  tariffValue: "On request",
+  tariffValue: "On enquiry",
   cta: "View details",
 } as const;
 
 export const GALLERY_COPY = {
   eyebrow: "A glimpse of Cloudora",
   title: "Room to breathe",
+  body: "Bedrooms, living spaces, exteriors and evenings at our private Kodaikanal villa.",
 } as const;
 
 export const CTA_COPY = {
   eyebrow: "Your mountain escape awaits",
-  title: "Come for the view. Stay for the feeling.",
+  title: UI.tagline,
+  tamil: UI.taglineTamil,
   button: "Plan your stay",
 } as const;
 
 export const FOOTER_COPY = {
   tagline: UI.tagline,
-  description:
-    "A private 5 BHK mountain villa crafted for families, friends and meaningful stays in Kodaikanal.",
+  tamil: UI.taglineTamil,
+  description: WELCOME_COPY.body,
   visit: "Visit",
   connect: "Connect",
   directions: "Get directions →",
   terms: "Terms",
   privacy: "Privacy",
+  proprietor: `Proprietor: ${UI.proprietor}`,
+} as const;
+
+export const TESTIMONIALS_COPY = {
+  eyebrow: "Guest feedback",
+  title: "Stays that feel like home",
 } as const;

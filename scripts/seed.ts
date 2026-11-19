@@ -60,7 +60,8 @@ async function main() {
   ];
 
   const roomIds: string[] = [];
-  for (const room of rooms) {
+  for (const [index, room] of rooms.entries()) {
+    const roomImage = ASSETS.ROOMS[index] ?? ASSETS.ROOM_DEFAULT;
     const saved = await prisma.room.upsert({
       where: { slug: room.slug },
       update: {
@@ -69,13 +70,14 @@ async function main() {
         floor: room.floor,
         sortOrder: room.sortOrder,
         isActive: true,
+        images: [roomImage],
       },
       create: {
         ...room,
         maxGuests: 3,
         baseTariffPerNight: 5500,
         extraGuestFee: 1000,
-        images: [ASSETS.ROOM_DEFAULT],
+        images: [roomImage],
         amenities: ["King bed", "Attached bath", "TV", "Hot water"],
       },
     });
@@ -87,24 +89,41 @@ async function main() {
     update: {
       roomIds,
       isActive: true,
-      name: "Cloudora Signature Villa Stay",
+      name: "Cloudora Luxury Homestay Stay",
+      shortDescription:
+        "A private 5 BHK luxury villa in Kodaikanal for families, friends and corporate groups — up to 15 guests.",
+      description:
+        "Book Cloudora for a memorable holiday amidst the hills and valley views of Kodaikanal. Spacious bedrooms, lounge, dining, campfire area and caretaker support throughout your stay.",
+      pricePerNight: null,
+      totalPrice: null,
+      includes: [
+        "Premium 5 BHK luxury villa",
+        "Up to 15 guests",
+        "Valley and mountain views",
+        "Private car parking",
+        "High-speed Wi-Fi",
+        "Caretaker support",
+      ],
     },
     create: {
-      name: "Cloudora Signature Villa Stay",
+      name: "Cloudora Luxury Homestay Stay",
       slug: "signature-villa-stay",
       shortDescription:
-        "A private 5 BHK villa experience for families, friends and corporate groups.",
+        "A private 5 BHK luxury villa in Kodaikanal for families, friends and corporate groups — up to 15 guests.",
       description:
-        "Book all five bedrooms for a fully private Cloudora stay with mountain views, lounge, dining and caretaker support.",
+        "Book Cloudora for a memorable holiday amidst the hills and valley views of Kodaikanal. Spacious bedrooms, lounge, dining, campfire area and caretaker support throughout your stay.",
       images: [ASSETS.PACKAGE],
       roomIds,
-      pricePerNight: 25000,
+      pricePerNight: null,
+      totalPrice: null,
       maxGuests: 15,
       includes: [
-        "All 5 bedrooms",
-        "Complimentary breakfast",
+        "Premium 5 BHK luxury villa",
+        "Up to 15 guests",
+        "Valley and mountain views",
+        "Private car parking",
+        "High-speed Wi-Fi",
         "Caretaker support",
-        "Private parking",
       ],
       isActive: true,
       sortOrder: 1,
@@ -113,29 +132,49 @@ async function main() {
 
   await prisma.package.upsert({
     where: { slug: "sai-travels-theni-kodai" },
-    update: { isActive: true },
+    update: {
+      isActive: true,
+      name: "Sai Travels to Cloudora (Theni to Kodaikanal)",
+      shortDescription:
+        "Travel together. Stay together. Celebrate together — exclusive Theni to Kodaikanal partnership.",
+      description:
+        "An exclusive travel partnership between Sai Travels, Theni and Cloudora, Kodaikanal. Advance booking required. Package pricing and inclusions confirmed by group size, travel dates and availability.",
+      includes: [
+        "Transportation from Theni to Kodaikanal and return",
+        "Comfortable luxury group accommodation",
+        "Local Kodaikanal sightseeing experience",
+        "Campfire and music entertainment at Cloudora",
+        "Singing, dancing and fun with your group",
+        "Complimentary breakfast at Cloudora",
+      ],
+      pricePerNight: null,
+      totalPrice: null,
+    },
     create: {
-      name: "Sai Travels to Cloudora",
+      name: "Sai Travels to Cloudora (Theni to Kodaikanal)",
       slug: "sai-travels-theni-kodai",
       shortDescription:
-        "Theni to Kodaikanal travel partnership with stay, sightseeing and campfire.",
+        "Travel together. Stay together. Celebrate together — exclusive Theni to Kodaikanal partnership.",
       description:
-        "Exclusive travel partnership between Sai Travels, Theni and Cloudora, Kodaikanal. Pricing confirmed by group size and dates.",
+        "An exclusive travel partnership between Sai Travels, Theni and Cloudora, Kodaikanal. Advance booking required. Package pricing and inclusions confirmed by group size, travel dates and availability.",
       images: [ASSETS.EXPERIENCE_LOCAL],
       roomIds,
       totalPrice: null,
       pricePerNight: null,
       maxGuests: 15,
       includes: [
-        "Transport Theni–Kodaikanal return",
-        "Luxury group accommodation",
-        "Local sightseeing",
-        "Campfire & breakfast",
+        "Transportation from Theni to Kodaikanal and return",
+        "Comfortable luxury group accommodation",
+        "Local Kodaikanal sightseeing experience",
+        "Campfire and music entertainment at Cloudora",
+        "Singing, dancing and fun with your group",
+        "Complimentary breakfast at Cloudora",
       ],
       isActive: true,
       sortOrder: 2,
     },
   });
+
 
   const gallerySeed = [
     ...ASSETS.GALLERY.map((url, i) => ({

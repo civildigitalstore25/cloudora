@@ -1,3 +1,4 @@
+import { AdminPageHeader } from "@/components/features/admin/AdminPageHeader";
 import { BlockedDatesClient } from "@/components/features/admin/BlockedDatesClient";
 import { prisma } from "@/lib/db/prisma";
 import { withIds } from "@/lib/db/serialize";
@@ -18,7 +19,10 @@ export default async function AdminBlockedDatesPage() {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-3xl text-dark">Blocked dates</h1>
+      <AdminPageHeader
+        title="Blocked dates"
+        description="Hold rooms or the whole villa for maintenance and private use."
+      />
       <BlockedDatesClient
         rooms={rooms}
         blocks={withIds(blocks).map((b) => ({

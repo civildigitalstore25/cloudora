@@ -3,135 +3,126 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession, signOut } from "next-auth/react";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { Menu } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { HeaderUserMenu } from "@/components/layout/Header/HeaderUserMenu";
+import { MobileNav } from "@/components/layout/Header/MobileNav";
 import { Button } from "@/components/ui/button";
 import { ASSETS } from "@/constants/assets";
+import { USER_ROLES } from "@/constants/auth";
+import { HEADER_COPY } from "@/constants/header";
 import { NAV_LINKS } from "@/constants/home";
 import { ROUTES } from "@/constants/routes";
 import { UI } from "@/constants/ui";
-import { USER_ROLES } from "@/constants/auth";
 import { cn } from "@/lib/utils/cn";
 
 export function Header() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const isHome = pathname === ROUTES.HOME;
+  const isAdmin = session?.user?.role === USER_ROLES.ADMIN;
+
+  useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
-    <header
-      className={cn(
-        "absolute inset-x-0 top-0 z-50",
-        !isHome && "relative bg-primary-strong text-white",
-      )}
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-6">
-        <Link href={ROUTES.HOME} className="flex items-center gap-3">
-          <Image
-            src={ASSETS.LOGO}
-            alt={UI.brandFull}
-            width={44}
-            height={44}
-            className="rounded-full bg-white/90 object-contain p-0.5"
-          />
-          <span
-            className={cn(
-              "font-display text-sm font-semibold tracking-[0.14em] uppercase sm:text-base",
-              isHome ? "text-accent" : "text-accent",
-            )}
-          >
-            {UI.brand}
-          </span>
-        </Link>
-
-        <nav className="hidden items-center gap-6 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "text-xs font-semibold tracking-[0.16em] uppercase transition-colors",
-                isHome ? "text-white/90 hover:text-white" : "text-white/90 hover:text-white",
-                pathname === link.href && "text-accent",
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-3 lg:flex">
+    <>
+      <header
+        className={cn(
+          "inset-x-0 top-0 z-50 transition-all duration-300",
+          isHome ? "absolute" : "relative bg-primary-strong text-white",
+          isHome &&
+            scrolled &&
+            "fixed bg-primary-strong/95 shadow-lg backdrop-blur-sm",
+        )}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
           <Link
-            href={session ? ROUTES.BOOKINGS : ROUTES.LOGIN}
-            className={cn(
-              "text-xs font-semibold tracking-[0.14em] uppercase",
-              isHome ? "text-white" : "text-white",
-            )}
+            href={ROUTES.HOME}
+            className="flex min-w-0 items-center gap-2.5 sm:gap-3"
           >
-            My booking
+            <Image
+              src={ASSETS.LOGO}
+              alt={UI.brandFull}
+              width={44}
+              height={44}
+              className="h-9 w-9 rounded-full bg-white/90 object-contain p-0.5 sm:h-11 sm:w-11"
+            />
+            <span className="truncate font-display text-sm font-semibold tracking-[0.14em] text-accent uppercase sm:text-base">
+              {UI.brand}
+            </span>
           </Link>
-          {session?.user?.role === USER_ROLES.ADMIN ? (
-            <Link
-              href={ROUTES.ADMIN.DASHBOARD}
-              className="text-xs font-semibold tracking-[0.14em] uppercase text-accent"
-            >
-              Admin
-            </Link>
-          ) : null}
-          {session ? (
-            <button
-              type="button"
-              onClick={() => signOut({ callbackUrl: ROUTES.HOME })}
-              className="text-xs font-semibold tracking-[0.14em] uppercase text-white/80"
-            >
-              Sign out
-            </button>
-          ) : null}
-          <Button asChild variant="accent" size="sm">
-            <Link href={ROUTES.BOOK}>Book your stay</Link>
-          </Button>
-        </div>
 
-        <button
-          type="button"
-          className="rounded-full p-2 text-white lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
-      </div>
-
-      {open ? (
-        <div className="border-t border-white/10 bg-primary-strong px-4 py-4 lg:hidden">
-          <div className="flex flex-col gap-3">
+          <nav className="hidden items-center gap-5 lg:flex xl:gap-6">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-sm font-semibold tracking-[0.12em] uppercase text-white"
+                className={cn(
+                  "text-[11px] font-semibold tracking-[0.16em] text-white/90 uppercase transition-colors hover:text-white xl:text-xs",
+                  pathname === link.href && "text-accent",
+                )}
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              href={session ? ROUTES.BOOKINGS : ROUTES.LOGIN}
-              onClick={() => setOpen(false)}
-              className="text-sm font-semibold tracking-[0.12em] uppercase text-white"
-            >
-              My booking
-            </Link>
-            <Button asChild variant="accent" className="mt-2">
-              <Link href={ROUTES.BOOK} onClick={() => setOpen(false)}>
-                Book your stay
-              </Link>
+          </nav>
+
+          <div className="hidden items-center gap-3 lg:flex">
+            <HeaderUserMenu light={isHome && !scrolled} />
+            <Button asChild variant="accent" size="sm">
+              <Link href={ROUTES.BOOK}>{HEADER_COPY.bookStay}</Link>
             </Button>
           </div>
+
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+            <HeaderUserMenu light={isHome && !scrolled} />
+            <button
+              type="button"
+              className="rounded-full p-2 text-white"
+              onClick={() => setOpen(true)}
+              aria-label={HEADER_COPY.openMenu}
+              aria-expanded={open}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </div>
-      ) : null}
-    </header>
+      </header>
+
+      {open && mounted
+        ? createPortal(
+            <MobileNav
+              pathname={pathname}
+              isAdmin={isAdmin}
+              signedIn={Boolean(session)}
+              onClose={() => setOpen(false)}
+            />,
+            document.body,
+          )
+        : null}
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { AdminPageHeader } from "@/components/features/admin/AdminPageHeader";
 import { PackageForm } from "@/components/features/admin/PackageForm";
 import { prisma } from "@/lib/db/prisma";
 import { withId } from "@/lib/db/serialize";
@@ -21,7 +22,10 @@ export default async function AdminPackageEditPage({ params }: Params) {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-3xl text-dark">Edit package</h1>
+      <AdminPageHeader
+        title="Edit package"
+        description="Update offer details, linked rooms and pricing."
+      />
       <PackageForm
         rooms={rooms}
         initial={{

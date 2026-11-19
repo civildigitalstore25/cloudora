@@ -1,3 +1,4 @@
+import { AdminPageHeader } from "@/components/features/admin/AdminPageHeader";
 import { EnquiriesClient } from "@/components/features/admin/EnquiriesClient";
 import { prisma } from "@/lib/db/prisma";
 import { withIds } from "@/lib/db/serialize";
@@ -11,7 +12,10 @@ export default async function AdminEnquiriesPage() {
 
   return (
     <div>
-      <h1 className="mb-6 font-display text-3xl text-dark">Enquiries</h1>
+      <AdminPageHeader
+        title="Enquiries"
+        description="Contact and experience requests from the website."
+      />
       <EnquiriesClient
         items={items.map((i) => ({
           _id: i._id,

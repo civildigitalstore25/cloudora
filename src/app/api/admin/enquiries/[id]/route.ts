@@ -10,7 +10,7 @@ const schema = z.object({
 
 type Params = { params: Promise<{ id: string }> };
 
-export async function PATCH(request: Request, { params }: Params) {
+export async function PUT(request: Request, { params }: Params) {
   const gate = await requireAdmin();
   if (!gate.ok) return gate.response;
   const { id } = await params;
@@ -23,4 +23,12 @@ export async function PATCH(request: Request, { params }: Params) {
     data: { status: parsed.data.status },
   });
   return NextResponse.json({ data: withId(row) });
+}
+
+export async function DELETE(_request: Request, { params }: Params) {
+  const gate = await requireAdmin();
+  if (!gate.ok) return gate.response;
+  const { id } = await params;
+  await prisma.enquiry.delete({ where: { id } });
+  return NextResponse.json({ data: { ok: true } });
 }
