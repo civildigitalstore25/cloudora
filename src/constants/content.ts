@@ -69,7 +69,11 @@ export const PACKAGES_CONTENT = [
       "A private 5 BHK luxury villa in Kodaikanal for families, friends and corporate groups — up to 15 guests.",
     description:
       "Book Cloudora for a memorable holiday amidst the hills and valley views of Kodaikanal. Spacious bedrooms, lounge, dining, campfire area and caretaker support throughout your stay.",
-    images: [ASSETS.PACKAGE],
+    images: [
+      ASSETS.AMENITIES[2],
+      ASSETS.EXTERIOR[1],
+      ASSETS.AMENITIES[0],
+    ],
     includes: [
       "Premium 5 BHK luxury villa",
       "Up to 15 guests",
@@ -78,7 +82,10 @@ export const PACKAGES_CONTENT = [
       "High-speed Wi-Fi",
       "Caretaker support",
     ],
-    enquiryPhone: UI.phonePrimary,
+    enquiryPhones: [
+      { label: "Cloudora – Kodaikanal", phone: UI.phonePrimary },
+      { label: "Also available", phone: UI.phoneSecondary },
+    ],
     priceLabel: "Tariff on enquiry",
   },
   {
@@ -89,7 +96,11 @@ export const PACKAGES_CONTENT = [
       "Travel together. Stay together. Celebrate together — exclusive Theni to Kodaikanal partnership.",
     description:
       "An exclusive travel partnership between Sai Travels, Theni and Cloudora, Kodaikanal. Advance booking required. Package pricing and inclusions will be confirmed based on group size, travel dates and availability.",
-    images: [ASSETS.EXPERIENCE_LOCAL],
+    images: [
+      ASSETS.EXPERIENCE_GATHER,
+      ASSETS.EXPERIENCE_CAMPFIRE,
+      ASSETS.EXPERIENCE_LOCAL,
+    ],
     includes: [
       "Transportation from Theni to Kodaikanal and return",
       "Comfortable luxury group accommodation",
@@ -99,8 +110,8 @@ export const PACKAGES_CONTENT = [
       "Complimentary breakfast at Cloudora",
     ],
     enquiryPhones: [
-      { label: "Cloudora – Kodaikanal", phone: "+91 79046 62055" },
-      { label: "Sai Travels – Theni", phone: "+91 98945 04111" },
+      { label: "Cloudora – Kodaikanal", phone: UI.phonePrimary },
+      { label: "Sai Travels – Theni", phone: UI.saiTravelsPhone },
     ],
     priceLabel: "On enquiry",
   },
