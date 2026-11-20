@@ -38,8 +38,8 @@ export function GalleryLightbox({
   if (!item) return null;
 
   return (
-    <div className="fixed inset-0 z-[80] flex flex-col bg-primary-strong/95 p-4 sm:p-8">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between">
+    <div className="fixed inset-0 z-[80] flex flex-col bg-primary-strong p-4 sm:p-8">
+      <div className="relative z-10 mx-auto flex w-full shrink-0 max-w-6xl items-center justify-between">
         <div>
           <p className="text-[10px] font-bold tracking-[0.2em] text-accent uppercase">
             {item.category}
@@ -58,7 +58,7 @@ export function GalleryLightbox({
         </button>
       </div>
 
-      <div className="relative mx-auto flex min-h-0 w-full max-w-6xl flex-1 items-center justify-center py-4">
+      <div className="relative mx-auto flex min-h-0 w-full max-w-6xl flex-1 items-center justify-center overflow-hidden py-4">
         <button
           type="button"
           onClick={onPrev}
@@ -68,7 +68,7 @@ export function GalleryLightbox({
           <ChevronLeft className="h-5 w-5" />
         </button>
 
-        <div className="relative mx-10 aspect-[4/3] w-full max-w-4xl overflow-hidden border border-accent/40 bg-primary-strong sm:mx-16">
+        <div className="relative mx-10 h-full w-full max-w-4xl border border-accent/40 bg-primary-strong sm:mx-16">
           <Image
             src={item.src}
             alt={item.title}
@@ -89,7 +89,7 @@ export function GalleryLightbox({
         </button>
       </div>
 
-      <div className="mx-auto w-full max-w-6xl text-center sm:text-left">
+      <div className="relative z-10 mx-auto w-full shrink-0 max-w-6xl text-center sm:text-left">
         <h3 className="font-display text-xl text-white sm:text-2xl">{item.title}</h3>
       </div>
     </div>
