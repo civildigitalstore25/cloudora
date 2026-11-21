@@ -156,6 +156,9 @@ export const FOOTER_COPY = {
   terms: "Terms",
   privacy: "Privacy",
   proprietor: `Proprietor: ${UI.proprietor}`,
+  creditPrefix: "Design and development by",
+  creditName: "Tom Scope Digital Marketing",
+  creditHref: "https://tomscope.com/",
 } as const;
 
 export const TESTIMONIALS_COPY = {

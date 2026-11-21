@@ -110,10 +110,32 @@ export function Footer() {
               <Link href={ROUTES.TERMS}>{FOOTER_COPY.terms}</Link>
               <Link href={ROUTES.PRIVACY}>{FOOTER_COPY.privacy}</Link>
             </div>
+            <p className="text-center text-[10px] text-white/55">
+              {FOOTER_COPY.creditPrefix}{" "}
+              <a
+                href={FOOTER_COPY.creditHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-accent hover:underline"
+              >
+                {FOOTER_COPY.creditName}
+              </a>
+            </p>
           </div>
 
           {/* Desktop: legal under grid */}
-          <div className="mt-10 hidden justify-end border-t border-white/10 pt-6 md:flex">
+          <div className="mt-10 hidden items-center justify-between gap-4 border-t border-white/10 pt-6 md:flex">
+            <p className="text-xs text-white/55">
+              {FOOTER_COPY.creditPrefix}{" "}
+              <a
+                href={FOOTER_COPY.creditHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-accent hover:underline"
+              >
+                {FOOTER_COPY.creditName}
+              </a>
+            </p>
             <div className="flex gap-5 text-xs font-bold tracking-[0.14em] uppercase">
               <Link href={ROUTES.TERMS}>{FOOTER_COPY.terms}</Link>
               <Link href={ROUTES.PRIVACY}>{FOOTER_COPY.privacy}</Link>
